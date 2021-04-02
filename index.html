@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Exercices</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --generalPadding: 10px;
+            --mainHeight: calc(var(--generalPadding) * 4 );
+            --mainBgColor: #27303d;
+            --secondaryBgColor: #ffd900;
+            --color: #FFF;
+            --mainFont: 'Lexend', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        html, body, header, nav, main, footer, div,p {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{            
+            display: flex;
+            flex-direction: column;
+            padding: var(--generalPadding);
+            font-family: var(--mainFont);
+            background-color: var(--secondaryBgColor);
+        }
+        header, main, footer{
+            background-color: var(--mainBgColor);
+            color: var(--secondaryBgColor);
+        }
+        header, footer{
+            text-align: center;
+        }
+        header{
+            height: 18vh;
+            padding: var(--generalPadding);            
+        }
+        nav div {
+            height: 1.8rem;
+            line-height: 1.8rem;
+            margin: .5rem 0;
+        }
+        nav select{
+            width: 300px;
+            height: inherit;
+            border: 1px solid #27303d;
+            font-size: 18px;
+            color: var(--mainBgColor);
+            background-color: var(--secondaryBgColor);
+            border-radius: 5px;            
+        }
+        nav select:focus{
+            border: 1px solid var(--color);
+        }
+        nav select:focus{
+            outline: none;
+        }
+        main{
+            height: calc(75vh - var(--mainHeight));
+            margin: var(--generalPadding) 0  ;
+        }
+        .problem, .solution{
+            min-height: 5vh;
+        }
+        footer{
+            font-weight: bold;
+            height: 7vh;
+            line-height: 7vh;
+        }
+        footer a{
+            text-decoration: none;
+            color: var(--secondaryBgColor);
+            padding: 2px 5px;
+        }
+        footer a:visited{
+            color: none;
+        }
+        footer a:hover{
+            color: var(--mainBgColor);
+            background-color: var(--secondaryBgColor);
+        }
+        footer .heart{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>w3resource javascript programming exercises</h1>
+        <nav>
+            <div id="menu"></div>
+            <div id="subMenu"></div>
+        </nav>
+    </header>
+    <main>
+        <p id="problem" class="problem"></p>
+        <p id="solution" class="solution"></p>
+    </main>
+    <footer>
+        <p>Coded with <span class="heart">❤</span> by <a href="https://github.com/turwaith">turwaith</a></p>
+    </footer>
+    <script>
+        const EXERCICES = [{category:"Basic",problems:150}, {category:"Fundamental 1",problems:150},
+                          {category:"Fundamental 2",problems:116},{category:"Functions", problems:29},
+                          {category:"Recusrion",problems:9},{category:"Conditional statements and loops", problems:12},
+                          {category:"Math",problems:53},{category:"Array", problems:41},
+                          {category:"DateTime",problems:53},{category:"String", problems:49},                          
+                          {category:"Validation with regular expression",problems:21},{category:"DOM", problems:13},
+                          {category:"Drawing",problems:6},{category:"Object", problems:18},
+                          {category:"Validation without regular expression",problems:10},{category:"Searching and Sorting Algorithm", problems:14}];
+        const MENU = document.getElementById("menu"),
+              SUBMENU = document.getElementById("subMenu");
+
+        MENU.appendChild(createSelect());
+        MENU.appendChild(document.createElement("br"));
+        
+        const SELECT = document.getElementById("category");
+
+        SELECT.addEventListener("change", createSelect2);
+
+        function createSelect2(e)
+        {
+            var alreadayExist = document.getElementById("exercice") || null;
+            if(alreadayExist != null) MENU.removeChild(alreadayExist);
+            var select = document.createElement("select");
+        select.id ="exercice";
+        var options;
+
+        for(i = 1; i <= e.target.value; i++)
+        {
+            let exercicePrefix = "0".repeat((e.target.value.toString().length - i.toString().length));
+            let repository = this.options[this.selectedIndex].textContent.toLowerCase();
+            repository = repository.replace(/ /ig, "-");
+            let option = document.createElement("option");
+
+            let name = `Exercice-${exercicePrefix+i.toString()}`;
+            let link = `${repository}/${name.toLowerCase()}`;
+
+            option.value = link;
+            option.textContent = name;
+
+            select.appendChild(option);
+        }
+           SUBMENU.appendChild(select);    
+        }
+        function createSelect()
+        {
+            var select = document.createElement("select");
+        select.id ="category";
+        var options;
+
+        for(i = 0; i < EXERCICES.length; i++)
+        {
+            let option = document.createElement("option");
+            option.value = EXERCICES[i].problems;
+            option.textContent = EXERCICES[i].category;
+            // option.value = EXERCICES[i].problems;
+            // options += options;
+            select.appendChild(option);
+        }
+            return select;
+        }
+
+
+    </script>
+</body>
+</html>
