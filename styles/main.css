@@ -1,0 +1,129 @@
+:root {
+    --generalPadding: 10px;
+    --mainHeight: calc(var(--generalPadding) * 4);
+    --mainBgColor: #282a36;
+    --secondaryBgColor: #ffd900;
+    --color: #FFF;
+    --mainFont: 'Lexend', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+html,
+body,
+header,
+nav,
+main,
+footer,
+div,
+p {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    padding: var(--generalPadding);
+    font-family: var(--mainFont);
+    background-color: var(--secondaryBgColor);
+}
+
+header,
+main,
+footer {
+    background-color: var(--mainBgColor);
+    color: var(--secondaryBgColor);
+    border-radius: 5px;
+}
+
+header,
+footer {
+    text-align: center;
+}
+
+header {
+    height: 18vh;
+    padding: var(--generalPadding);
+}
+
+header div {
+    height: 1.8rem;
+    line-height: 1.8rem;
+    margin: .5rem 0;
+}
+
+header select {
+    width: 300px;
+    height: inherit;
+    border: 1px solid #27303d;
+    font-size: 18px;
+    color: var(--mainBgColor);
+    background-color: var(--secondaryBgColor);
+    border-radius: 5px;
+}
+
+header select:focus {
+    outline: none;
+    border: 1px solid var(--color);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: calc(75vh - var(--mainHeight));
+    margin: var(--generalPadding) 0;
+}
+main nav {
+    display: flex;
+    height: 10%;
+    border-bottom: 1px solid var(--secondaryBgColor);
+    padding-top: 5px;
+    padding-left: 5px;
+}
+.contentMenu{
+    display: block;
+    padding: 1.1rem; 
+}
+.outputContainer{
+    height: 90%;
+    position: relative;
+}
+.output{
+    position: absolute;
+    top:0;   
+    display: none; 
+    cursor: pointer;
+}
+.menuActive{
+    display: block;
+    border:1px solid var(--secondaryBgColor);
+    border-bottom: 1px solid var(--mainBgColor);
+}
+.contentActive{
+   display: block;
+}
+
+footer {
+    font-weight: bold;
+    height: 7vh;
+    line-height: 7vh;
+}
+
+footer a {
+    text-decoration: none;
+    color: var(--secondaryBgColor);
+    padding: 2px 5px;
+}
+
+footer a:visited {
+    color: none;
+}
+
+footer a:hover {
+    color: var(--mainBgColor);
+    background-color: var(--secondaryBgColor);
+}
+
+footer .heart {
+    color: red;
+}
