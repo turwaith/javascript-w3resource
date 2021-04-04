@@ -2,6 +2,7 @@
     --generalPadding: 10px;
     --mainHeight: calc(var(--generalPadding) * 4);
     --mainBgColor: #282a36;
+    --contrastMainColor: #5d5f68;
     --secondaryBgColor: #ffd900;
     --color: #FFF;
     --mainFont: 'Lexend', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -60,6 +61,7 @@ header select {
     color: var(--mainBgColor);
     background-color: var(--secondaryBgColor);
     border-radius: 5px;
+    cursor: pointer;
 }
 
 header select:focus {
@@ -72,33 +74,66 @@ main {
     flex-direction: column;
     height: calc(75vh - var(--mainHeight));
     margin: var(--generalPadding) 0;
+    padding: var(--generalPadding);
 }
 main nav {
     display: flex;
-    height: 10%;
+    height: 3rem;
     border-bottom: 1px solid var(--secondaryBgColor);
-    padding-top: 5px;
-    padding-left: 5px;
 }
-.contentMenu{
-    display: block;
-    padding: 1.1rem; 
-}
-.outputContainer{
-    height: 90%;
-    position: relative;
-}
-.output{
-    position: absolute;
-    top:0;   
-    display: none; 
+.menu{
+    display: block;    
+    line-height: 3rem;
+    padding: 0 1.2rem;
+    border-radius: 5px 5px 0 0;
     cursor: pointer;
+}
+.menu:nth-child(even){
+    margin: 0 5px;
+}
+.menu:not(.menuActive){
+    background-color: var(--contrastMainColor);
+    border: 1px solid transparent;
+}
+.menu:not(.menuActive):hover{   
+    background-color: var(--secondaryBgColor);
+    color: var(--mainBgColor);
 }
 .menuActive{
     display: block;
     border:1px solid var(--secondaryBgColor);
-    border-bottom: 1px solid var(--mainBgColor);
+    border-bottom:1px solid var(--mainBgColor);
+    position: relative;
+    top: 1px;
 }
+.outputContainer{
+    height: calc(100% - 3rem);
+    position: relative;  
+    overflow: auto;  
+}
+/* width */
+.outputContainer::-webkit-scrollbar {
+    width: 2px;
+  }
+  .outputContainer:hover::-webkit-scrollbar{
+    width: 10px;
+    
+  }
+  /* Track */
+  .outputContainer::-webkit-scrollbar-track {
+    background: var(--contrastMainColor);
+  }
+  /* Handle */
+  .outputContainer::-webkit-scrollbar-thumb {
+    background: var(--secondaryBgColor);
+  }
+.output{
+    position: absolute;
+    top:0;   
+    display: none; 
+    padding-top: var(--generalPadding);
+}
+
 .contentActive{
    display: block;
 }

@@ -77,9 +77,9 @@ function exerciceSelect(e) {
 
 function changeScript() {
   const EXERCICE_SCRIPT = document.getElementById("exercice"),
-    PROBLEM = document.getElementById("problem"),
-    SOLUTION = document.getElementById("solution"),
-    SCRIPT_CONTENT = document.getElementById("scriptContent");
+    PROBLEM = document.getElementById("output-problem"),
+    SOLUTION = document.getElementById("output-solution"),
+    SCRIPT_CONTENT = document.getElementById("output-code-content");
 
   EXERCICE_SCRIPT.addEventListener("change", (e) => {
     PROBLEM.textContent = "";
@@ -97,39 +97,37 @@ function changeScript() {
     newScriptTag.id = "exerciceScript";
     newScriptTag.src = `${e.target.value}.js`;
 
-    // fetch(`${e.target.value}.js`).then(function (response) {
-    //     if (response.ok) {
-    //         // PROBLEM.textContent = response.text();
-    //         response.blob().then(function (myBlob) {
-    //             // var objectURL = URL.createObjectURL(myBlob);
-    //             // myImage.src = objectURL;
-    //             PROBLEM.textContent = myBlob.text();
-    //         });
-
-    //     } else {
-    //         PROBLEM.textContent = 'Mauvaise réponse du réseau';
-    //     }
-    // })
-    //     .catch(function (error) {
-    //         PROBLEM.textContent = 'Il y a eu un problème avec l\'opération fetch: ' + error.message;
-    //     });
-    let xhttp = new XMLHttpRequest(); // create a ajax request object
-    xhttp.onreadystatechange = function () {
-      // when it's ok
-      if (this.readyState == 4 && this.status == 200) {
+    fetch(`${e.target.value}.js`)
+      // Handle success
+      .then((response) => {
+        if (!response.ok) {
+          // make the promise be rejected if we didn't get a 2xx response
+          throw new Error("The file doesn't exists");
+        } else {
+          return response.text();
+        }
+      }) 
+      .then((content) => {
         document.body.appendChild(newScriptTag);
-       
-        document.getElementById(
-          "scriptContent"
-        ).textContent = this.responseText;
-        hljs.highlightAll();
-      } else if (this.status == 404) {
-        PROBLEM.textContent = "Il y a eu un problème avec l'opération  ";
-      }
-    };
-    xhttp.open("GET", `${e.target.value}.js`, true);
-    xhttp.send();
+        // remove setProblem & setSolution function
+        // remove 2 or more blank by one
+        SCRIPT_CONTENT.textContent = content
+          .replace(/\bset.*;/gim, "\n") ///\b(set)(.*\n*){1,}\);/gim
+          .replace(/^\s*[\r\n]{2,}/gim, "\n\n")
+          .trim();
+        hljs.highlightAll(SCRIPT_CONTENT);
+      }) //print data to console
+      .catch(
+        (err) =>
+          (PROBLEM.innerText =
+            "There is a problem\n" + err)
+      ); // Catch errors
   });
 }
-
+function setProblem(problem) {
+  document.getElementById("output-problem").innerHTML = problem;
+}
+function setSolution(solution) {
+  document.getElementById("output-solution").innerHTML = solution;
+}
 categorySelect();
