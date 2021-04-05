@@ -125,9 +125,9 @@ function changeScript() {
   });
 }
 function setProblem(problem) {
-  document.getElementById("output-problem").innerHTML = problem;
+  document.getElementById("output-problem").innerText = problem;
 }
 function setSolution(solution) {
-  document.getElementById("output-solution").innerHTML = solution;
+  document.getElementById("output-solution").innerText = solution;
 }
 categorySelect();
