@@ -112,7 +112,7 @@ function changeScript() {
         // remove setProblem & setSolution function
         // remove 2 or more blank by one
         SCRIPT_CONTENT.textContent = content
-          .replace(/\bset.*;/gim, "\n") ///\b(set)(.*\n*){1,}\);/gim
+          .replace(/\b(setProblem|setSolution).*;/gim, "\n") 
           .replace(/^\s*[\r\n]{2,}/gim, "\n\n")
           .trim();
         hljs.highlightAll(SCRIPT_CONTENT);
@@ -124,10 +124,22 @@ function changeScript() {
       ); // Catch errors
   });
 }
+/**
+ * Display the problem in the 'output-problem' div
+ * @param {string} problem The problem to display
+ */
 function setProblem(problem) {
   document.getElementById("output-problem").innerText = problem;
 }
-function setSolution(solution) {
+/**
+ * * Display the solution in the 'output-solution' div
+ * @param {string} solution The solution to display
+ * @param {boolean} element True if the solution is a html element to insert
+ */
+function setSolution(solution, element=false) {
+  if(element)
+    document.getElementById("output-solution").appendChild(solution);
+  else
   document.getElementById("output-solution").innerText = solution;
 }
 categorySelect();
