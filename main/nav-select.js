@@ -106,22 +106,22 @@ function changeScript() {
         } else {
           return response.text();
         }
-      }) 
+      })
       .then((content) => {
         document.body.appendChild(newScriptTag);
         // remove setProblem & setSolution function
         // remove 2 or more blank by one
-        SCRIPT_CONTENT.textContent = content
-          .replace(/\b(setProblem|setSolution).*;/gim, "\n") 
-          .replace(/^\s*[\r\n]{2,}/gim, "\n\n")
-          .trim();
+        let removeComment = /\/\/\scode.*?(\r*?\n*?.*?){1,}?end/g;
+        let removeDisplay = /(setProblem|setSolution).*?(\r*?\n*?.*?){1,}?;/g;
+
+        content = content.replace(removeComment, "");
+        content = content.replace(removeDisplay, "");
+        content = content.trim();
+        
+        SCRIPT_CONTENT.textContent = content;
         hljs.highlightAll(SCRIPT_CONTENT);
       }) //print data to console
-      .catch(
-        (err) =>
-          (PROBLEM.innerText =
-            "There is a problem\n" + err)
-      ); // Catch errors
+      .catch((err) => (PROBLEM.innerText = "There is a problem\n" + err)); // Catch errors
   });
 }
 /**
@@ -136,10 +136,11 @@ function setProblem(problem) {
  * @param {string} solution The solution to display
  * @param {boolean} element True if the solution is a html element to insert
  */
-function setSolution(solution, element=false) {
-  if(element)
-    document.getElementById("output-solution").appendChild(solution);
-  else
-  document.getElementById("output-solution").innerText = solution;
+function setSolution(solution, element = false) {
+  if (element) document.getElementById("output-solution").appendChild(solution);
+  else document.getElementById("output-solution").innerText = solution;
 }
+
+const problem = document.getElementById("ouput-problem"),
+  solution = document.getElementById("output-solution");
 categorySelect();
