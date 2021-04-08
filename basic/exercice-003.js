@@ -5,4 +5,4 @@ var month = time.getMonth();
 var day = time.getDate();
 var year = time.getFullYear();
 
-setSolution(`${month}-${day}-${year}`);
+setSolution(`${month+1}-${day}-${year}`);
