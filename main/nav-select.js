@@ -111,7 +111,7 @@ function changeScript() {
         document.body.appendChild(newScriptTag);
         // remove setProblem & setSolution function
         // remove 2 or more blank by one
-        let removeComment = /\/\/\scode.*?(\r*?\n*?.*?){1,}?end\s/g;
+        let removeComment = /\/\/\s\*exclude\*.*?(\r*?\n*?.*?){1,}?\/\/\s\*exclude\*/g;
         let removeDisplay = /(setProblem|setSolution).*?(\r*?\n*?.*?){1,}?;/g;
 
         content = content.replace(removeComment, "");

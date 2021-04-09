@@ -8,6 +8,6 @@ var animation = setInterval(() => {
     solution.textContent = text;    // set text in the solution Tab
 }, 250);
 
-// code to exclude start
+// *exclude*
 window.addEventListener("change", () => clearInterval(animation));
-// code to exclude end
+// *exclude*
